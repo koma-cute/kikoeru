@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 
-const config = require('../../config.json');
+const config = require(process.cwd() + '/config.json');
 
 const router = express.Router();
 
@@ -30,4 +30,5 @@ const authenticator = (req, res, next) => {
   }
 };
 
+// 模块接口，声明这个模块对外暴露什么内容
 module.exports = { router, authenticator };
