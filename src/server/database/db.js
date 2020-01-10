@@ -1,16 +1,18 @@
-const knex = require('knex')({
-  client: 'sqlite3',
+//knex 操作数据库
+const knex = require('knex')({ // 初始化
+  client: 'sqlite3', // 指明数据库类型
   useNullAsDefault: true,
-  connection: {
+  connection: { // 指明连接参数
     filename: './db.sqlite3',
   },
-  acquireConnectionTimeout: 5000,
+  acquireConnectionTimeout: 5000, // 连接计时器大小
 });
 
 /**
  * Takes a work metadata object and inserts it into the database.
  * @param {Object} work Work object.
  */
+//Using trx as a query builder:
 const insertWorkMetadata = work => knex.transaction(trx => trx.raw(
   trx('t_circle')
     .insert({
@@ -249,6 +251,7 @@ const paginateResults = (query, startFrom, howMany, tableName) => query
   .where(tableName ? `${tableName}_id` : 'id', '<', startFrom)
   .limit(howMany);
 
+// 模块接口，声明这个模块对外暴露什么内容
 module.exports = {
   knex, insertWorkMetadata, getWorkMetadata, removeWork, getWorksBy, paginateResults,
 };
