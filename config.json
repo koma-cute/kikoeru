@@ -1,7 +1,11 @@
 {
-  "rootDir": "/mnt/Media/Voice",
+  "maxParallelism": 16,
   "password": false,
+  "rootDir": "G:/催眠音声/test",
   "scannerMaxRecursionDepth": 2,
   "worksPerPage": 12,
-  "maxParallelism": 8
+  "tagLanguage": "zh-cn",
+  "coverSource": "DLsite",
+  "retries": 3,
+  "timeout": 25
 }
