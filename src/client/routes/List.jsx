@@ -5,17 +5,20 @@ import { Link } from 'inferno-router';
  * Generic link list (used for circles, tags and VAs).
  */
 class List extends Component {
-  constructor(props) {
+  constructor(props) { // 构造器
     super(props);
 
-    this.onFilter = this.onFilter.bind(this);
+    this.onFilter = this.onFilter.bind(this); // 绑定是必要的，这样 `this` 才能在回调函数中使用
+    
+    // react 会监视 state 的变化，一旦发生变化就会根据 state 更新界面，
+    // 只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）
     this.state = {
       items: null,
       filteredItems: null,
     };
   }
 
-  componentDidMount() {
+  componentDidMount() { // 在第一次渲染后调用
     const { restrict } = this.props;
 
     fetch(`/api/${restrict}s/`)
@@ -28,9 +31,10 @@ class List extends Component {
       });
   }
 
+  // 当使用 ES6 class 语法来定义一个组件的时候，事件处理器会成为类的一个方法
   onFilter(evt) {
-    evt.preventDefault();
-    const data = new FormData(evt.target);
+    evt.preventDefault(); // 阻止标签的默认行为(例如<a>标签默认的点击跳转行为)
+    const data = new FormData(evt.target); // evt.target 事件的目标节点(触发该事件的节点)
     const { items } = this.state;
 
     this.setState({
