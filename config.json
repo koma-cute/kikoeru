@@ -1,7 +1,7 @@
 {
   "maxParallelism": 16,
   "password": false,
-  "rootDir": "G:/催眠音声/test",
+  "rootDir": "/kikoeru/VoiceWork",
   "scannerMaxRecursionDepth": 2,
   "worksPerPage": 12,
   "tagLanguage": "zh-cn",
