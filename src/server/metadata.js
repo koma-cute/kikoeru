@@ -261,5 +261,66 @@ const scrapeWorkMetadata = (id, tagLanguage) => {
   }
 };
 
+
+// const scrapeAllTags = (tagLanguage) => new Promise((resolve, reject) => {
+//   const url = 'https://www.dlsite.com/maniax/fs';
+//   var tags = [];
+//   var cookieLocale;
+
+//   switch(tagLanguage) {
+//     case 'ja-jp':
+//       cookieLocale = 'locale=ja-jp'
+//       break;
+//     case 'zh-tw':
+//       cookieLocale = 'locale=zh-tw'
+//       break;
+//     default:
+//       cookieLocale = 'locale=zh-cn'
+//   } 
+ 
+//   fetch(url, {
+//     headers: { "cookie": cookieLocale } // cookie
+//   }) // HTTP数据请求
+//     .then((res) => {
+//       if (res.ok) {
+//         return res;    
+//       } else {
+//         reject(new Error(`Couldn't fetch work page HTML, received ${res.statusText}`));
+//       } 
+//     })
+//     .then(res => res.text()) // 以 string 的形式生成请求 text
+//     .then((res) => { // 解析
+//       // 通过 load 方法把 HTML 代码转换成一个 jQuery 对象，可以使用与 jQuery 一样的语法来操作
+//       var $ = cheerio.load(res);
+
+//       $('#fs_search').children('fieldset').eq(2)
+//         .children('table').children('tbody').children('tr').eq(1)
+//         .children('td').children('div')
+//         .children('div[class="frame_double_list_box list_triple_row"]')
+//         .each(function() {
+//           const tagClass = $(this).children('div').children('dl').children('dt')
+//             .children('p').children('span').text();
+
+//           $(this).children('div').children('dl').children('dd')
+//             .each(function() {
+//               const tagId = parseInt($(this).children('label').attr('for').substr(-3,3));
+//               const tagName = $(this).children('label').text();
+              
+//               tags.push({
+//                 id: tagId,
+//                 name: tagName,
+//                 class: tagClass
+//               });
+//             });
+//         });
+
+//       resolve(tags);
+
+//     })
+//     .catch((err) => {
+//       reject(new Error(err.message));
+//     });
+// });
+
 // 模块接口，声明这个模块对外暴露什么内容
 module.exports = scrapeWorkMetadata;
