@@ -50,7 +50,7 @@ const scrapeWorkMetadataFromHVDB = id => new Promise((resolve, reject) => {
   })]) // HTTP数据请求
     .then((res) => {
       if (res.ok) {
-        return res;    
+        return res;
       } else {
         reject(new Error(`Couldn't fetch work page HTML, received ${res.statusText}`));
       }
@@ -64,6 +64,8 @@ const scrapeWorkMetadataFromHVDB = id => new Promise((resolve, reject) => {
         onopentag: (name, attrs) => { // 标签名 属性
           if (name === 'input') {
             if (attrs.id === 'Name') {
+              work.title = attrs.value;
+            } else if (attrs.id === 'EngName' && attrs.value !== "") {
               work.title = attrs.value;
             } else if (attrs.name === 'SFW') {
               work.nsfw = attrs.value === 'false';
@@ -149,8 +151,8 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
       ageRatings = '年龄指定';
       genre = '分类';
       CV = '声优';
-  } 
- 
+  }
+
   Promise.race([fetch(url, {
     headers: { "cookie": cookieLocale } // cookie
   }), new Promise(function(resolve,reject){
@@ -158,10 +160,10 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
   })]) // HTTP数据请求
     .then((res) => {
       if (res.ok) {
-        return res;    
+        return res;
       } else {
         reject(new Error(`Couldn't fetch work page HTML, received ${res.statusText}`));
-      } 
+      }
     })
     .then(res => res.text()) // 以string的形式生成请求text
     .then((res) => { // 解析
@@ -170,14 +172,14 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
 
       // 标题
       work.title = $('a[href="'+url+'"]').text();
-  
+
       // 社团
       const circleUrl = $('span[class="maker_name"]').children('a').attr('href');
       const circleName = $('span[class="maker_name"]').children('a').text();
       work.circle = {
         id: parseInt(circleUrl.substr(-10,5)),
         name: circleName
-      }; 
+      };
 
       // NSFW
       const R18 = $('#work_outline').children('tbody').children('tr').children('th')
@@ -189,7 +191,7 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
       } else {
         work.nsfw = 'false';
       }
-      
+
       // 标签
       $('#work_outline').children('tbody').children('tr').children('th')
         .filter(function() {
@@ -202,7 +204,7 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
             name: name
           });
         });
-      
+
       // 声优
       $('#work_outline').children('tbody').children('tr').children('th')
         .filter(function() {
@@ -216,7 +218,7 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
         });
     })
     .then(() => {
-      if (work.vas.length === 0) { // 从DLsite抓取不到声优信息  
+      if (work.vas.length === 0) { // 从DLsite抓取不到声优信息
         // 从HVDB抓取声优信息
         scrapeWorkMetadataFromHVDB(id)
           .then((metadata) => {
@@ -241,7 +243,7 @@ const scrapeWorkMetadataFromDLsite = (id, tagLanguage) => new Promise((resolve, 
           });
       } else { // 从DLsite抓取到声优信息
         resolve(work);
-      } 
+      }
     })
     .catch((err) => {
       reject(new Error(err.message));
@@ -276,17 +278,17 @@ const scrapeWorkMetadata = (id, tagLanguage) => {
 //       break;
 //     default:
 //       cookieLocale = 'locale=zh-cn'
-//   } 
- 
+//   }
+
 //   fetch(url, {
 //     headers: { "cookie": cookieLocale } // cookie
 //   }) // HTTP数据请求
 //     .then((res) => {
 //       if (res.ok) {
-//         return res;    
+//         return res;
 //       } else {
 //         reject(new Error(`Couldn't fetch work page HTML, received ${res.statusText}`));
-//       } 
+//       }
 //     })
 //     .then(res => res.text()) // 以 string 的形式生成请求 text
 //     .then((res) => { // 解析
@@ -305,7 +307,7 @@ const scrapeWorkMetadata = (id, tagLanguage) => {
 //             .each(function() {
 //               const tagId = parseInt($(this).children('label').attr('for').substr(-3,3));
 //               const tagName = $(this).children('label').text();
-              
+
 //               tags.push({
 //                 id: tagId,
 //                 name: tagName,
