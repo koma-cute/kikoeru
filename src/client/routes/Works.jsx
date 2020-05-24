@@ -157,6 +157,9 @@ class Works extends Component {
     return (
       <div className="uk-container uk-margin-top">
         <h2>{pageTitle}</h2>
+        <script>
+        document.title = '{pageTitle.replace("'", "’")} - Kikoeru';
+        </script>
         <InfiniteScroll
           className="uk-flex uk-flex-center uk-flex-wrap"
           style={{ margin: '-12px -12px' }}

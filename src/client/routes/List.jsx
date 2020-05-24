@@ -9,7 +9,7 @@ class List extends Component {
     super(props);
 
     this.onFilter = this.onFilter.bind(this); // 绑定是必要的，这样 `this` 才能在回调函数中使用
-    
+
     // react 会监视 state 的变化，一旦发生变化就会根据 state 更新界面，
     // 只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）
     this.state = {
@@ -29,6 +29,7 @@ class List extends Component {
       .catch((err) => {
         throw new Error(`Failed to fetch /api/${restrict}s/: ${err}`);
       });
+      document.title = 'All {restrict}s - Kikoeru';
   }
 
   // 当使用 ES6 class 语法来定义一个组件的时候，事件处理器会成为类的一个方法

@@ -29,33 +29,37 @@ class Scaner extends Component {
     this.socket.emit('perform scan', 'PERFORM SCAN'); // 发送一个 'perform scan' 事件
   }
 
+  componentDidMount() {
+    document.title = 'Scanner - Kikoeru';
+  }
+
   render() {
     const { items } = this.state;
     const elementList = items.map(item => {
       if (item.result === 'failed') {
         return (
-          <div class="uk-alert-danger uk-width-1 uk-margin-small-bottom" uk-alert> 
+          <div class="uk-alert-danger uk-width-1 uk-margin-small-bottom" uk-alert>
             <button class="uk-alert-close" type="button" uk-close=""></button>
             {item.detail}
           </div>
         );
       } else {
         return (
-          <div class="uk-alert-success uk-width-1 uk-margin-small-bottom" uk-alert> 
+          <div class="uk-alert-success uk-width-1 uk-margin-small-bottom" uk-alert>
             <button class="uk-alert-close" type="button" uk-close=""></button>
             {item.detail}
           </div>
         );
       }
     });
-     
+
     return (
       <div className="uk-container">
         <h2 className="uk-margin-top">Scan</h2>
         <button className="uk-button uk-button-default uk-width-1 uk-margin-small-bottom" onClick={this.sendScanOder}>
           PERFORM SCAN
         </button>
-        
+
         <div className="uk-align-center">
           {elementList}
         </div>

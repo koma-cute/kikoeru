@@ -59,6 +59,9 @@ class Work extends Component {
     // Metadata ready, render the work page.
     return (
       <>
+        <script>
+        document.title = '{metadata.title.replace("'", "’")} - Kikoeru';
+        </script>
         <WorkDetails metadata={metadata} />
         <div
           className="uk-margin-remove-top"

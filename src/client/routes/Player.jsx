@@ -74,6 +74,7 @@ class Player extends Component {
     if (!currentlyPlaying) {
       return (<Redirect to="/" />);
     }
+    document.title = currentlyPlaying.title + " - Kikoeru";
 
     return (
       <>
