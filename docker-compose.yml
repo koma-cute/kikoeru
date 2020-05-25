@@ -1,0 +1,13 @@
+version: "3"
+services:
+  kikoeru:
+    image: kikoeru
+    container_name: kikoeru
+    build: /path/to/kikoeru
+    ports:
+      - 8888:8888/tcp
+    volumes:
+      - /path/to/works/:/app/works/
+      - /path/to/config.json:/app/config.json
+      - /path/to/db.sqlite3:/app/db.sqlite3
+    restart: unless-stopped
