@@ -1,11 +1,11 @@
 {
   "maxParallelism": 16,
   "password": false,
-  "rootDir": "/kikoeru/VoiceWork",
-  "scannerMaxRecursionDepth": 2,
-  "worksPerPage": 12,
-  "tagLanguage": "zh-cn",
-  "coverSource": "DLsite",
+  "rootDir": "/app/works",
+  "scannerMaxRecursionDepth": 12,
+  "worksPerPage": 48,
+  "tagLanguage": "en-us",
+  "coverSource": "HVDB",
   "retries": 3,
   "timeout": 25
 }
